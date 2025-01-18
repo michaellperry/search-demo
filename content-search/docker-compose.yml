@@ -1,0 +1,52 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  drupal:
+    image: drupal:9.3-apache
+    container_name: drupal
+    ports:
+      - "8080:80"
+    environment:
+      DRUPAL_DB_HOST: db
+      DRUPAL_DB_USER: drupal
+      DRUPAL_DB_PASSWORD: drupal
+      DRUPAL_DB_NAME: drupal
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: drupal
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./static:/usr/share/nginx/html:ro
+
+volumes:
+  esdata:
+  dbdata:
