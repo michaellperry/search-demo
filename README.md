@@ -6,6 +6,16 @@ The objective is to demonstrate the capabilities of Elasticsearch for searching 
 
 To run the demo, you must have Docker installed. This has been tested on Windows using WSL2. It is known to have issues on Apple Silicon.
 
+You must also have `jq` installed. Use the following command to install it on Ubuntu:
+
+```bash
+sudo apt install jq
+```
+
+## Running the Demo
+
+Use Docker Compose to create the containers:
+
 ```bash
 cd content-search
 docker compose pull
@@ -26,3 +36,14 @@ After the site is created, you will be prompted to configure the site. Enter the
 - Site maintenance account username: `admin`
 - Site maintenance account password: `admin`
 - Check for updates automatically: `unchecked`
+
+Enable the JSON:API module. Go to Admin > Extend, search for JSON:API, select the module, and click the Install button.
+
+## Indexing Content
+
+The content is now available via the following URLs:
+
+- [Articles](http://localhost:8080/en/jsonapi/node/article)
+- [Recipes](http://localhost:8080/en/jsonapi/node/recipe)
+
+You can import the articles into Elasticsearch using the `index-articles.sh` script.
