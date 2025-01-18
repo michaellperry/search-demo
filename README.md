@@ -11,3 +11,18 @@ cd content-search
 docker compose pull
 docker compose up
 ```
+
+Then you can open [Drupal](http://localhost:8080/) and set up the Umami Food Magazine demo site. Enter the following settings for the MySQL database:
+
+- Database name: `drupal`
+- Database username: `drupal`
+- Database password: `drupal`
+- Host (under Advanced Options): `db`
+
+After the site is created, you will be prompted to configure the site. Enter the following settings:
+
+- Site name: `Umami Food Magazine`
+- Site email: `umami@improving.com`
+- Site maintenance account username: `admin`
+- Site maintenance account password: `admin`
+- Check for updates automatically: `unchecked`
