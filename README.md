@@ -47,7 +47,12 @@ The content is now available via the following URLs:
 - [Recipes](http://localhost:8080/en/jsonapi/node/recipe)
 - [Tags](http://localhost:8080/en/jsonapi/taxonomy_term/tags)
 
-You can import the articles and tags into Elasticsearch using the `index-articles.sh` and `index-tags.sh` scripts.
+To index the content, first index the tags. Then index the articles. The script to index the articles looks up the tags for each article and adds them to the article document.
+
+```
+./index-tags.sh
+./index-articles.sh
+```
 
 ## Searching Content
 
