@@ -92,13 +92,3 @@ curl -X GET 'http://localhost:9200/articles/_search?pretty' \
     }
   }'
 ```
-
-The results show the IDs of the tags. Use the following command to retrieve the tag names:
-
-```bash
-curl -X GET 'http://localhost:9200/tags/_search?pretty' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "query": { "match_all": {} }
-  }' | jq '.hits.hits[] | ._source'
-```
