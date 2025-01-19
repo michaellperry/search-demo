@@ -47,3 +47,27 @@ The content is now available via the following URLs:
 - [Recipes](http://localhost:8080/en/jsonapi/node/recipe)
 
 You can import the articles into Elasticsearch using the `index-articles.sh` script.
+
+## Searching Content
+
+Run a few searches against the Elasticsearch index using the following curl commands.
+
+First, search for articles with the word "herbs" in the title:
+
+```bash
+curl -X GET 'http://localhost:9200/articles/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": { "match": { "title": "herbs" } }
+  }'
+```
+
+Next, find articles with the word "orange" in the body:
+
+```bash
+curl -X GET 'http://localhost:9200/articles/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": { "match": { "body": "orange" } }
+  }'
+```
