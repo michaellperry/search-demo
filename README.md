@@ -45,8 +45,9 @@ The content is now available via the following URLs:
 
 - [Articles](http://localhost:8080/en/jsonapi/node/article)
 - [Recipes](http://localhost:8080/en/jsonapi/node/recipe)
+- [Tags](http://localhost:8080/en/jsonapi/taxonomy_term/tags)
 
-You can import the articles into Elasticsearch using the `index-articles.sh` script.
+You can import the articles and tags into Elasticsearch using the `index-articles.sh` and `index-tags.sh` scripts.
 
 ## Searching Content
 
@@ -70,4 +71,29 @@ curl -X GET 'http://localhost:9200/articles/_search?pretty' \
   -d '{
     "query": { "match": { "body": "orange" } }
   }'
+```
+
+Let's list all of the tags associated with articles that contain the word "orange" in the body so that we can present a list of tags and the number of articles associated with each tag.
+
+```bash
+curl -X GET 'http://localhost:9200/articles/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": { "match": { "body": "orange" } },
+    "aggs": {
+      "tags": {
+        "terms": { "field": "tags" }
+      }
+    }
+  }'
+```
+
+The results show the IDs of the tags. Use the following command to retrieve the tag names:
+
+```bash
+curl -X GET 'http://localhost:9200/tags/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": { "match_all": {} }
+  }' | jq '.hits.hits[] | ._source'
 ```

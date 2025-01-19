@@ -18,7 +18,8 @@ if ! curl -s -o /dev/null -w "%{http_code}" "${ES_HOST}/${INDEX_NAME}" | grep -q
         "title": { "type": "text" },
         "body": { "type": "text" },
         "drupal_internal__nid": { "type": "integer" },
-        "created": { "type": "date" }
+        "created": { "type": "date" },
+        "tags": { "type": "keyword" }
       }
     }
   }'
