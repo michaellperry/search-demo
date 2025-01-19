@@ -54,6 +54,14 @@ To index the content, first index the tags. Then index the articles. The script 
 ./index-articles.sh
 ```
 
+## Indexing Products
+
+To index the products, run the following script:
+
+```bash
+./index-products.sh
+```
+
 ## Searching Content
 
 Run a few searches against the Elasticsearch index using the following curl commands.
@@ -123,5 +131,82 @@ curl -X GET 'http://localhost:9200/articles/_search?pretty' \
       }
     },
     "_source": ["title", "article_path", "image_path"]
+  }'
+```
+
+## Searching Products
+
+Run a few searches against the Elasticsearch index using the following curl commands.
+
+First, search for products with the word "casual" in the description:
+
+```bash
+curl -X GET 'http://localhost:9200/products/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": { "match": { "description": "casual" } }
+  }'
+```
+
+This shows the entire document. To show only the name, description, and image URL, use the following command:
+
+```bash
+curl -X GET 'http://localhost:9200/products/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": { "match": { "description": "casual" } },
+    "_source": ["name", "description", "image_url"]
+  }'
+```
+
+Let's list all of the categories associated with products that contain the word "casual" in the description so that we can present a list of categories and the number of products associated with each category.
+
+```bash
+curl -X GET 'http://localhost:9200/products/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": { "match": { "description": "casual" } },
+    "_source": ["name", "description", "image_url"],
+    "aggs": {
+      "categories": {
+        "terms": { "field": "category" }
+      }
+    }
+  }'
+```
+
+Now let's list all of the books. Include their categories.
+
+```bash
+curl -X GET 'http://localhost:9200/products/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": { "match": { "kind": "book" } },
+    "_source": ["name", "description", "image_url"],
+    "aggs": {
+      "categories": {
+        "terms": { "field": "category" }
+      }
+    }
+  }'
+```
+
+The category "non-fiction" has two documents. We can filter the search results to only include books with the "non-fiction" category.
+
+```bash
+curl -X GET 'http://localhost:9200/products/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": {
+      "bool": {
+        "must": [
+          { "match": { "kind": "book" } }
+        ],
+        "filter": [
+          { "term": { "category": "non-fiction" } }
+        ]
+      }
+    },
+    "_source": ["name", "description", "image_url"]
   }'
 ```

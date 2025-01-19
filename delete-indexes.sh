@@ -2,3 +2,4 @@
 
 curl -X DELETE "http://localhost:9200/articles"
 curl -X DELETE "http://localhost:9200/tags"
+curl -X DELETE "http://localhost:9200/products"

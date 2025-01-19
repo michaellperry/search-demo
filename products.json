@@ -1,0 +1,116 @@
+{
+    "products": [
+        {
+            "id": "book-001",
+            "name": "The Great Adventure",
+            "description": "An epic journey through unknown lands.",
+            "image_url": "http://localhost:8080/images/books/great-adventure.jpg",
+            "kind": "book",
+            "category": "fiction"
+        },
+        {
+            "id": "book-002",
+            "name": "Gardening 101",
+            "description": "A beginner's guide to growing your own produce.",
+            "image_url": "http://localhost:8080/images/books/gardening101.jpg",
+            "kind": "book",
+            "category": "non-fiction"
+        },
+        {
+            "id": "book-003",
+            "name": "The Art of War",
+            "description": "A classic book on military strategy.",
+            "image_url": "http://localhost:8080/images/books/art-of-war.jpg",
+            "kind": "book",
+            "category": "non-fiction"
+        },
+        {
+            "id": "book-004",
+            "name": "The Hobbit",
+            "description": "A fantasy novel about a hobbit's adventure.",
+            "image_url": "http://localhost:8080/images/books/hobbit.jpg",
+            "kind": "book",
+            "category": "fiction"
+        },
+        {
+            "id": "apparel-001",
+            "name": "Cool Summer T-Shirt",
+            "description": "Lightweight, comfortable t-shirt ideal for summer days.",
+            "image_url": "http://localhost:8080/images/apparel/summer-tshirt.jpg",
+            "kind": "apparel",
+            "category": "shirts"
+        },
+        {
+            "id": "apparel-002",
+            "name": "Stylish Hat",
+            "description": "A trendy hat perfect for any casual occasion.",
+            "image_url": "http://localhost:8080/images/apparel/stylish-hat.jpg",
+            "kind": "apparel",
+            "category": "hats"
+        },
+        {
+            "id": "apparel-003",
+            "name": "Winter Jacket",
+            "description": "A warm, insulated jacket for cold winter days.",
+            "image_url": "http://localhost:8080/images/apparel/winter-jacket.jpg",
+            "kind": "apparel",
+            "category": "jackets"
+        },
+        {
+            "id": "apparel-004",
+            "name": "Casual Jeans",
+            "description": "Comfortable, durable jeans for everyday wear.",
+            "image_url": "http://localhost:8080/images/apparel/casual-jeans.jpg",
+            "kind": "apparel",
+            "category": "pants"
+        },
+        {
+            "id": "apparel-005",
+            "name": "Running Shoes",
+            "description": "Lightweight, supportive shoes for running and exercise.",
+            "image_url": "http://localhost:8080/images/apparel/running-shoes.jpg",
+            "kind": "apparel",
+            "category": "shoes"
+        },
+        {
+            "id": "apparel-006",
+            "name": "Khakis",
+            "description": "Classic khaki pants for a casual, polished look.",
+            "image_url": "http://localhost:8080/images/apparel/khakis.jpg",
+            "kind": "apparel",
+            "category": "pants"
+        },
+        {
+            "id": "apparel-007",
+            "name": "Graphic Tee",
+            "description": "A t-shirt with a cool graphic design.",
+            "image_url": "http://localhost:8080/images/apparel/graphic-tee.jpg",
+            "kind": "apparel",
+            "category": "shirts"
+        },
+        {
+            "id": "apparel-008",
+            "name": "Polo Shirt",
+            "description": "A classic polo shirt for a smart casual look.",
+            "image_url": "http://localhost:8080/images/apparel/polo-shirt.jpg",
+            "kind": "apparel",
+            "category": "shirts"
+        },
+        {
+            "id": "apparel-009",
+            "name": "Baseball Cap",
+            "description": "A comfortable baseball cap for sunny days.",
+            "image_url": "http://localhost:8080/images/apparel/baseball-cap.jpg",
+            "kind": "apparel",
+            "category": "hats"
+        },
+        {
+            "id": "apparel-010",
+            "name": "Beanie",
+            "description": "A warm beanie for cold weather.",
+            "image_url": "http://localhost:8080/images/apparel/beanie.jpg",
+            "kind": "apparel",
+            "category": "hats"
+        }
+    ]
+}
