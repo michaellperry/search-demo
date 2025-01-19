@@ -9,6 +9,9 @@ TAGS_INDEX_NAME="tags"
 DRUPAL_JSON="drupal_articles.json"
 DRUPAL_JSON_API="http://localhost:8080/jsonapi/node/article"
 
+# Drupal content endpoint.
+DRUPAL_CONTENT="http://localhost:8080/en"
+
 # Check if the index exists, and if not, create it with a basic mapping.
 if ! curl -s -o /dev/null -w "%{http_code}" "${ES_HOST}/${INDEX_NAME}" | grep -q "200"; then
   echo "Creating index '${INDEX_NAME}'..."
@@ -20,7 +23,9 @@ if ! curl -s -o /dev/null -w "%{http_code}" "${ES_HOST}/${INDEX_NAME}" | grep -q
         "body": { "type": "text" },
         "drupal_internal__nid": { "type": "integer" },
         "created": { "type": "date" },
-        "tags": { "type": "keyword" }
+        "tags": { "type": "keyword" },
+        "article_path": { "type": "text" },
+        "image_path": { "type": "text" }
       }
     }
   }'
@@ -54,12 +59,14 @@ jq -c '.data[]' "$DRUPAL_JSON" | while read -r article; do
   fi
   
   # Build a simplified JSON object for Elasticsearch indexing, e.g., title, body, etc.
-  payload=$(echo "$article" | jq --argjson tags "$tag_names" '{
+  payload=$(echo "$article" | jq --argjson tags "$tag_names" --arg drupal_content "$DRUPAL_CONTENT" '{
     title: .attributes.title,
     body: .attributes.body.value,
     nid: .attributes.drupal_internal__nid,
     created: .attributes.created,
-    tags: $tags
+    tags: $tags,
+    article_path: ($drupal_content + .attributes.path.alias),
+    image_path: .relationships.field_media_image.links.related.href
   }')
   
   # Index the document.

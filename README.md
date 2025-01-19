@@ -68,14 +68,14 @@ curl -X GET 'http://localhost:9200/articles/_search?pretty' \
   }'
 ```
 
-This shows the entire document. To show only the title, use the following command:
+This shows the entire document. To show only the title, path, and image, use the following command:
 
 ```bash
 curl -X GET 'http://localhost:9200/articles/_search?pretty' \
   -H 'Content-Type: application/json' \
   -d '{
     "query": { "match": { "title": "herbs" } },
-    "_source": ["title"]
+    "_source": ["title", "article_path", "image_path"]
   }'
 ```
 
@@ -86,7 +86,7 @@ curl -X GET 'http://localhost:9200/articles/_search?pretty' \
   -H 'Content-Type: application/json' \
   -d '{
     "query": { "match": { "body": "orange" } },
-    "_source": ["title"]
+    "_source": ["title", "article_path", "image_path"]
   }'
 ```
 
@@ -97,7 +97,7 @@ curl -X GET 'http://localhost:9200/articles/_search?pretty' \
   -H 'Content-Type: application/json' \
   -d '{
     "query": { "match": { "body": "orange" } },
-    "_source": ["title"],
+    "_source": ["title", "article_path", "image_path"],
     "aggs": {
       "tags": {
         "terms": { "field": "tags" }
@@ -122,6 +122,6 @@ curl -X GET 'http://localhost:9200/articles/_search?pretty' \
         ]
       }
     },
-    "_source": ["title"]
+    "_source": ["title", "article_path", "image_path"]
   }'
 ```
