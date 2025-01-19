@@ -68,13 +68,25 @@ curl -X GET 'http://localhost:9200/articles/_search?pretty' \
   }'
 ```
 
+This shows the entire document. To show only the title, use the following command:
+
+```bash
+curl -X GET 'http://localhost:9200/articles/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": { "match": { "title": "herbs" } },
+    "_source": ["title"]
+  }'
+```
+
 Next, find articles with the word "orange" in the body:
 
 ```bash
 curl -X GET 'http://localhost:9200/articles/_search?pretty' \
   -H 'Content-Type: application/json' \
   -d '{
-    "query": { "match": { "body": "orange" } }
+    "query": { "match": { "body": "orange" } },
+    "_source": ["title"]
   }'
 ```
 
@@ -85,10 +97,31 @@ curl -X GET 'http://localhost:9200/articles/_search?pretty' \
   -H 'Content-Type: application/json' \
   -d '{
     "query": { "match": { "body": "orange" } },
+    "_source": ["title"],
     "aggs": {
       "tags": {
         "terms": { "field": "tags" }
       }
     }
+  }'
+```
+
+The tag "Vegetarian" has two documents. We can filter the search results to only include articles with the "Vegetarian" tag.
+
+```bash
+curl -X GET 'http://localhost:9200/articles/_search?pretty' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": {
+      "bool": {
+        "must": [
+          { "match": { "body": "orange" } }
+        ],
+        "filter": [
+          { "term": { "tags": "Vegetarian" } }
+        ]
+      }
+    },
+    "_source": ["title"]
   }'
 ```
